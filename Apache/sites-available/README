@@ -1,0 +1,26 @@
+#
+## Apache sites-available & sites-enabled folders
+#
+The "sites-available" folder contains all available VirtualHost *.conf files,
+ but none of them are automatically included in the Apache config.
+
+The "sites-enabled" folder contains symlinks to any VirtualHost configuration
+ files in "sites-available", which you want Apache to "include" & enable.
+
+NOTE: Apache processes included ".conf" files in alphabetical order, which may
+ have a bearing on your config file naming scheme.
+
+Run the following, within sites-enabled, to "enable" an "available" site
+% sudo ln -s ../sites-available/SITENAME.conf
+
+Run this, to check the included configs' syntax and VirtualHost order
+% sudo apachectl -S
+
+Restart Apache, making changes take effect (without aborting curently
+ open connections)
+% sudo apachectl graceful
+
+NOTE: Some config changes will not take effect after a graceful restart, so you
+may need to issue a full Apache restart, like this
+% sudo apachectl restart
+
